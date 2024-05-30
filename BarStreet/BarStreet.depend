@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1717091312 source:d:\nuevo orden mundial\barstreet\main.cpp
+	<iostream>
+
+1717100770 source:d:\nuevo orden mundial\barstreet\articulo.cpp
+	<iostream>
+	<cstring>
+	"Articulo.h"
+	"Funciones.h"
+
+1717100734 d:\nuevo orden mundial\barstreet\articulo.h
+	<string>
+
+1717099034 d:\nuevo orden mundial\barstreet\funciones.h
+	<cstring>
+
