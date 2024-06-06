@@ -32,6 +32,18 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Articulo.cpp" />
+		<Unit filename="Articulo.h" />
+		<Unit filename="Bebida.cpp" />
+		<Unit filename="Bebida.h" />
+		<Unit filename="Comida.cpp" />
+		<Unit filename="Comida.h" />
+		<Unit filename="Fecha.cpp" />
+		<Unit filename="Fecha.h" />
+		<Unit filename="Funciones.h" />
+		<Unit filename="Hora.cpp" />
+		<Unit filename="Hora.h" />
+		<Unit filename="Menu.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

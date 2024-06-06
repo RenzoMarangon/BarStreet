@@ -22,5 +22,4 @@ class Comida : public Articulo{
 
 };
 
-
 #endif // COMIDA_H_INCLUDED

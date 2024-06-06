@@ -27,6 +27,8 @@ void Articulo::setID( int id)
 std::string Articulo::getNombre(){
     return _nombre;
 }
+
+
 void Articulo::setNombre(std::string nombre){
    if(nombre.size() <= 50){
       strcpy(_nombre, nombre.c_str());
@@ -81,37 +83,43 @@ void Articulo::Cargar()
 
     std::cout<<"ID: ";
     std::cin >> _id;
+    std::cout<<endl;
 
-    std::cout << "Nombre";
+    std::cout << "Nombre ";
     cargarCadena(_nombre,49);
+    std::cout<<endl;
 
     std::cout<< "Stock: ";
     std::cin >> _stock;
+    std::cout<<endl;
 
     std::cout<< "Precio inicial: ";
     std::cin >> _precio_inicial;
+    std::cout<<endl;
 
     std::cout<< "Costo: ";
     std::cin >> _costo;
+    std::cout<<endl;
 
     std::cout<< "Variacion: ";
     std::cin >> _variacion;
+    std::cout<<endl;
 }
 
 void Articulo::Mostrar()
 {
-    std::cout<<"ID: " << _id;
+    std::cout<<"ID: " << _id << endl;
 
 
-    std::cout << "Nombre: " << _nombre;
+    std::cout << "Nombre: " << _nombre << endl;
 
-    std::cout<< "Stock: " << _stock;
+    std::cout<< "Stock: " << _stock << endl;
 
-    std::cout<< "Precio inicial: " << _precio_inicial;
+    std::cout<< "Precio inicial: " << _precio_inicial << endl;
 
-    std::cout<< "Costo: " << _costo;
+    std::cout<< "Costo: " << _costo << endl;
 
-    std::cout<< "Variacion: " << _variacion;
+    std::cout<< "Variacion: " << _variacion << endl;
 }
 
 
