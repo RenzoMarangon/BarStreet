@@ -14,3 +14,34 @@
 1717099034 d:\nuevo orden mundial\barstreet\funciones.h
 	<cstring>
 
+1717707863 source:d:\proyectacos\barstreet\barstreet\articulo.cpp
+	<iostream>
+	<cstring>
+	"Articulo.h"
+	"Funciones.h"
+
+1717707863 d:\proyectacos\barstreet\barstreet\articulo.h
+	<string>
+
+1717707863 d:\proyectacos\barstreet\barstreet\funciones.h
+	<cstring>
+
+1717707863 source:d:\proyectacos\barstreet\barstreet\main.cpp
+	<iostream>
+
+1717707863 source:d:\proyectacos\barstreet\barstreet\fecha.cpp
+	<iostream>
+	<ctime>
+	"Fecha.h"
+
+1717707863 d:\proyectacos\barstreet\barstreet\fecha.h
+	<string>
+
+1717707863 source:d:\proyectacos\barstreet\barstreet\hora.cpp
+	<iostream>
+	<ctime>
+	"Hora.h"
+
+1717707863 d:\proyectacos\barstreet\barstreet\hora.h
+	<string>
+
