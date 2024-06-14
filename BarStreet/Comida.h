@@ -1,7 +1,10 @@
+#pragma once
 #ifndef COMIDA_H_INCLUDED
 #define COMIDA_H_INCLUDED
 #include <string>
 #include "Articulo.h"
+
+using namespace std;
 
 class Comida : public Articulo{
     private:
@@ -9,7 +12,7 @@ class Comida : public Articulo{
         char _guarnicion[100];
 
     public:
-        Comida(std::string observacion, std::string guarnicion);
+        Comida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, float volumen, float graduacion_alcohol, std::string observacion, std::string guarnicion);
 
         std::string getObservacion();
         void setObservacion(std::string observacion);

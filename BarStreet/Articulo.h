@@ -1,8 +1,10 @@
+#pragma once
 #ifndef ARTICULO_H_INCLUDED
 #define ARTICULO_H_INCLUDED
 
 #include <string>
 
+#include "Funciones.h"
 
 class Articulo
 {

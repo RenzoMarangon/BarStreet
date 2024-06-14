@@ -1,9 +1,10 @@
 #include <iostream>
 #include <cstring>
+using namespace std;
 #include "Articulo.h"
-#include "Funciones.h"
 
-Articulo::Articulo(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion = 0)
+
+Articulo::Articulo(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion)
 {
     setID( id );
     setNombre( nombre );
