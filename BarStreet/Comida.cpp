@@ -5,14 +5,7 @@
 
 using namespace std;
 
-Comida::Comida(int id)
-        :Articulo(id)
-        {
-            setGuarnicion("N/N");
-            setObservacion("N/N");
-        }
-
-Comida::Comida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, std::string observacion, std::string guarnicion)
+Comida::Comida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, float volumen, float graduacion_alcohol, std::string observacion, std::string guarnicion)
     : Articulo( id, nombre, precio_inicial, costo, stock, variacion )
 {
 
@@ -69,11 +62,11 @@ void Comida::Mostrar()
 
     Articulo::Mostrar();
     std::cout<< "Guarnicion: ";
-    std::cout << _guarnicion;
+    std::cin >> _guarnicion;
     std::cout<<endl;
 
     std::cout<< "Observacion: ";
-    std::cout << _observacion;
+    std::cin >> _observacion;
     std::cout<<endl;
 
 }

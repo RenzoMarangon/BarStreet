@@ -4,11 +4,6 @@
 
 using namespace std;
 
-Bebida::Bebida(int id) : Articulo(id){
-    setGraduacionAlcoholica(0);
-    setVolumen(0);
-}
-
 Bebida::Bebida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, float volumen, float graduacion_alcohol)
     : Articulo(id, nombre, precio_inicial, costo, stock, variacion)
 {
@@ -56,11 +51,11 @@ void Bebida::Mostrar()
 
     Articulo::Mostrar();
     std::cout<< "Volumen: ";
-    std::cout << _volumen;
+    std::cin >> _volumen;
     std::cout<<endl;
 
     std::cout<< "Graduacion acoholica: ";
-    std::cout << _graduacion_acohol;
+    std::cin >> _graduacion_acohol;
     std::cout<<endl;
 
 }

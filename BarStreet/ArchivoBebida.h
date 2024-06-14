@@ -6,17 +6,17 @@
 # include<cstring>
 #include "bebida.h"
 
-class ArchivoBebida{
+class ArchivoComida{
 
     private:
         char nombre[50];
     public:
-        ArchivoBebida(const char *n="bebida.dat");
-        bool grabarRegistro(Bebida obj);
-        Bebida leerRegistro(int pos);
+        ArchivoComida(const char *n="bebida.dat"){strcpy(nombre,n);}
+        bool grabarRegistro(Comida obj);
+        Comida leerRegistro(int pos);
         int buscarRegistro(int num);
         int contarRegistros();
-        bool modificarRegistro(Bebida obj, int pos);
+        bool modificarRegistro(Comida obj, int pos);
         bool listarRegistros();
 
 };

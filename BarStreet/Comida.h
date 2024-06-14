@@ -12,8 +12,7 @@ class Comida : public Articulo{
         char _guarnicion[100];
 
     public:
-        Comida(int id);
-        Comida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, std::string observacion, std::string guarnicion);
+        Comida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, float volumen, float graduacion_alcohol, std::string observacion, std::string guarnicion);
 
         std::string getObservacion();
         void setObservacion(std::string observacion);

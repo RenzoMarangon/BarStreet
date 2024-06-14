@@ -3,11 +3,6 @@
 #include "Funciones.h"
 #include "ArchivoComida.h"
 
-ArchivoComida::ArchivoComida(const char *n)
-{
-    strcpy(nombre,n);
-}
-
 bool ArchivoComida::grabarRegistro(Comida obj){
     FILE *p;
     p=fopen(nombre, "ab");
@@ -20,7 +15,7 @@ bool ArchivoComida::grabarRegistro(Comida obj){
 
 bool ArchivoComida::listarRegistros(){
     FILE *p;
-    Comida obj(0);
+    Comida obj;
     p=fopen(nombre, "rb");
     if(p==NULL) return false;
     while(fread(&obj, sizeof obj, 1, p)==1){
@@ -31,14 +26,14 @@ bool ArchivoComida::listarRegistros(){
     return true;
 }
 
-int ArchivoComida::buscarRegistro(int id){
+int ArchivoComida::buscarRegistro(int num){
     FILE *p;
-    Comida obj(0);
+    Comida obj;
     p=fopen(nombre, "rb");
     int pos=0;
     if(p==NULL) return -1;
     while(fread(&obj, sizeof obj, 1, p)==1){
-                if(obj.getID()==id){
+                if(obj.getNumero()==num){
                     fclose(p);
                     return pos;
                 }
@@ -50,9 +45,9 @@ int ArchivoComida::buscarRegistro(int id){
 
 Comida ArchivoComida::leerRegistro(int pos){
     FILE *p;
-    Comida obj(0);
+    Comida obj;
     p=fopen(nombre, "rb");
-    obj.setID(-5);
+    obj.setNumero(-5);
     if(p==NULL) return obj;
     fseek(p, pos*sizeof obj,0);///función que permite ubicarse dentro del archivo
     fread(&obj, sizeof obj, 1, p);

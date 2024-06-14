@@ -2,14 +2,6 @@
 #include <cstring>
 #include "Funciones.h"
 #include "ArchivoBebida.h"
-#include "Bebida.h"
-using namespace std;
-
-ArchivoBebida::ArchivoBebida(const char *n)
-{
-    strcpy(nombre,n);
-}
-
 
 bool ArchivoBebida::grabarRegistro(Bebida obj){
     FILE *p;
@@ -23,7 +15,7 @@ bool ArchivoBebida::grabarRegistro(Bebida obj){
 
 bool ArchivoBebida::listarRegistros(){
     FILE *p;
-    Bebida obj(0);
+    Bebida obj;
     p=fopen(nombre, "rb");
     if(p==NULL) return false;
     while(fread(&obj, sizeof obj, 1, p)==1){
@@ -34,14 +26,14 @@ bool ArchivoBebida::listarRegistros(){
     return true;
 }
 
-int ArchivoBebida::buscarRegistro(int id){
+int ArchivoBebida::buscarRegistro(int num){
     FILE *p;
-    Bebida obj(0);
+    Bebida obj;
     p=fopen(nombre, "rb");
     int pos=0;
     if(p==NULL) return -1;
     while(fread(&obj, sizeof obj, 1, p)==1){
-                if(obj.getID()==id){
+                if(obj.getNumero()==num){
                     fclose(p);
                     return pos;
                 }
@@ -53,9 +45,9 @@ int ArchivoBebida::buscarRegistro(int id){
 
 Bebida ArchivoBebida::leerRegistro(int pos){
     FILE *p;
-    Bebida obj(0);
+    Bebida obj;
     p=fopen(nombre, "rb");
-    obj.setID(-5);
+    obj.setNumero(-5);
     if(p==NULL) return obj;
     fseek(p, pos*sizeof obj,0);///función que permite ubicarse dentro del archivo
     fread(&obj, sizeof obj, 1, p);
@@ -80,5 +72,5 @@ int ArchivoBebida::contarRegistros(){
     fseek(p, 0,2);///función que permite ubicarse dentro del archivo, en este caso lo ubiqué al final EOF
     int tam=ftell(p);///me devuelve la cantidad de bytes que hay desde el principio del archivo a la posición actual del indicador de pFILE.
     fclose(p);
-    return tam/sizeof(Bebida);
+    return tam/sizeof(Comida);
 }

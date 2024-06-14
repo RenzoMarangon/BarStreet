@@ -2,17 +2,7 @@
 #include <cstring>
 using namespace std;
 #include "Articulo.h"
-#include "Funciones.h"
 
-Articulo::Articulo(int id){
-    setID( id );
-    setNombre( "N/N" );
-    setPrecioInicial( 0 );
-    setCosto( 0 );
-    setStock( 0 );
-    setVariacion( 0 );
-    setEstado( true );
-}
 
 Articulo::Articulo(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion)
 {
