@@ -11,7 +11,7 @@ class ArchivoComida{
     private:
         char nombre[50];
     public:
-        ArchivoComida(const char *n="comida.dat"){strcpy(nombre,n);}
+        ArchivoComida(const char *n="comida.dat");
         bool grabarRegistro(Comida obj);
         Comida leerRegistro(int pos);
         int buscarRegistro(int num);

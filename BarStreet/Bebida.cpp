@@ -1,13 +1,19 @@
 #include <iostream>
 #include <cstring>
 #include "Bebida.h"
-#include "Funciones.h"
 
+using namespace std;
 
-Bebida::Bebida(float volumen, float graduacion_alcohol)
+Bebida::Bebida(int id) : Articulo(id){
+    setGraduacionAlcoholica(0);
+    setVolumen(0);
+}
+
+Bebida::Bebida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, float volumen, float graduacion_alcohol)
+    : Articulo(id, nombre, precio_inicial, costo, stock, variacion)
 {
     _volumen = volumen;
-    _graduacion_acohol = graduacion_acohol;
+    _graduacion_acohol = graduacion_alcohol;
 }
 
 float Bebida::getVolumen()
@@ -50,11 +56,11 @@ void Bebida::Mostrar()
 
     Articulo::Mostrar();
     std::cout<< "Volumen: ";
-    std::cin >> _volumen;
+    std::cout << _volumen;
     std::cout<<endl;
 
     std::cout<< "Graduacion acoholica: ";
-    std::cin >> _graduacion_acohol;
+    std::cout << _graduacion_acohol;
     std::cout<<endl;
 
 }

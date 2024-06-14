@@ -14,34 +14,139 @@
 1717099034 d:\nuevo orden mundial\barstreet\funciones.h
 	<cstring>
 
-1717707863 source:d:\proyectacos\barstreet\barstreet\articulo.cpp
+1718334648 source:e:\proyectos\barstreet\barstreet\main.cpp
+	<iostream>
+
+1716894751 source:e:\proyectos\barstreet\barstreet\fecha.cpp
+	<iostream>
+	<ctime>
+	"Fecha.h"
+
+1716894710 e:\proyectos\barstreet\barstreet\fecha.h
+	<string>
+
+1717114863 source:e:\proyectos\barstreet\barstreet\hora.cpp
+	<iostream>
+	<ctime>
+	"Hora.h"
+
+1718334908 e:\proyectos\barstreet\barstreet\hora.h
+	<string>
+
+1718334796 source:e:\proyectos\barstreet\barstreet\articulo.cpp
+	<iostream>
+	<cstring>
+	"Articulo.h"
+
+1718334914 e:\proyectos\barstreet\barstreet\articulo.h
+	<string>
+	"Funciones.h"
+
+1718335257 e:\proyectos\barstreet\barstreet\funciones.h
+	<cstring>
+
+1718334622 source:e:\proyectos\barstreet\barstreet\bebida.cpp
+	<iostream>
+	<cstring>
+	"Bebida.h"
+
+1718334922 e:\proyectos\barstreet\barstreet\bebida.h
+	<string>
+	"Articulo.h"
+
+1718334779 source:e:\proyectos\barstreet\barstreet\comida.cpp
+	<iostream>
+	<cstring>
+	"Comida.h"
+
+1718334925 e:\proyectos\barstreet\barstreet\comida.h
+	<string>
+	"Articulo.h"
+
+1718335292 source:e:\proyectos\barstreet\barstreet\funciones.cpp
+	<iostream>
+	<cstring>
+
+1718370173 source:d:\proyectacos\barstreet\barstreet\articulo.cpp
 	<iostream>
 	<cstring>
 	"Articulo.h"
 	"Funciones.h"
 
-1717707863 d:\proyectacos\barstreet\barstreet\articulo.h
+1718370190 d:\proyectacos\barstreet\barstreet\articulo.h
 	<string>
+	"Funciones.h"
 
-1717707863 d:\proyectacos\barstreet\barstreet\funciones.h
+1718370059 d:\proyectacos\barstreet\barstreet\funciones.h
 	<cstring>
 
-1717707863 source:d:\proyectacos\barstreet\barstreet\main.cpp
+1718370564 source:d:\proyectacos\barstreet\barstreet\bebida.cpp
 	<iostream>
+	<cstring>
+	"Bebida.h"
 
-1717707863 source:d:\proyectacos\barstreet\barstreet\fecha.cpp
+1718370300 d:\proyectacos\barstreet\barstreet\bebida.h
+	<string>
+	"Articulo.h"
+
+1718370479 source:d:\proyectacos\barstreet\barstreet\comida.cpp
+	<iostream>
+	<cstring>
+	"Comida.h"
+
+1718370362 d:\proyectacos\barstreet\barstreet\comida.h
+	<string>
+	"Articulo.h"
+
+1718336407 source:d:\proyectacos\barstreet\barstreet\fecha.cpp
 	<iostream>
 	<ctime>
 	"Fecha.h"
 
-1717707863 d:\proyectacos\barstreet\barstreet\fecha.h
+1718336407 d:\proyectacos\barstreet\barstreet\fecha.h
 	<string>
 
-1717707863 source:d:\proyectacos\barstreet\barstreet\hora.cpp
+1718336407 source:d:\proyectacos\barstreet\barstreet\hora.cpp
 	<iostream>
 	<ctime>
 	"Hora.h"
 
-1717707863 d:\proyectacos\barstreet\barstreet\hora.h
+1718336407 d:\proyectacos\barstreet\barstreet\hora.h
 	<string>
+
+1718370779 source:d:\proyectacos\barstreet\barstreet\main.cpp
+	<iostream>
+	"Comida.h"
+	"Bebida.h"
+	"ArchivoBebida.h"
+	"ArchivoComida.h"
+
+1718370055 source:d:\proyectacos\barstreet\barstreet\funciones.cpp
+	<iostream>
+	<cstring>
+
+1718371071 d:\proyectacos\barstreet\barstreet\archivobebida.h
+	<iostream>
+	<cstdlib>
+	<cstring>
+	"bebida.h"
+
+1718370916 d:\proyectacos\barstreet\barstreet\archivocomida.h
+	<iostream>
+	<cstdlib>
+	<cstring>
+	"comida.h"
+
+1718371304 source:d:\proyectacos\barstreet\barstreet\archivobebida.cpp
+	<iostream>
+	<cstring>
+	"Funciones.h"
+	"ArchivoBebida.h"
+	"Bebida.h"
+
+1718371316 source:d:\proyectacos\barstreet\barstreet\archivocomida.cpp
+	<iostream>
+	<cstring>
+	"Funciones.h"
+	"ArchivoComida.h"
 

@@ -1,13 +1,24 @@
 #include <iostream>
 #include <cstring>
 #include "Comida.h"
-#include "Funciones.h"
 
-Comida::Comida(std::string observacion, std::string guarnicion){
 
-    strcpy(_observacion, observacion);
+using namespace std;
 
-    strcpy(_guarnicion, guarnicion);
+Comida::Comida(int id)
+        :Articulo(id)
+        {
+            setGuarnicion("N/N");
+            setObservacion("N/N");
+        }
+
+Comida::Comida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, std::string observacion, std::string guarnicion)
+    : Articulo( id, nombre, precio_inicial, costo, stock, variacion )
+{
+
+    strcpy(_observacion, observacion.c_str());
+
+    strcpy(_guarnicion, guarnicion.c_str());
 }
 
 std::string Comida::getObservacion()
@@ -53,16 +64,16 @@ void Comida::Cargar()
     cargarCadena(_observacion,99);
 }
 
-void Bebida::Mostrar()
+void Comida::Mostrar()
 {
 
     Articulo::Mostrar();
     std::cout<< "Guarnicion: ";
-    std::cin >> _guarnicion;
+    std::cout << _guarnicion;
     std::cout<<endl;
 
     std::cout<< "Observacion: ";
-    std::cin >> _observacion;
+    std::cout << _observacion;
     std::cout<<endl;
 
 }
