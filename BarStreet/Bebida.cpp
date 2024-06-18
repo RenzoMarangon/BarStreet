@@ -1,8 +1,17 @@
 #include <iostream>
 #include <cstring>
+#include "Articulo.h"
 #include "Bebida.h"
 
+
 using namespace std;
+
+Bebida::Bebida()
+    : Articulo(0, "N/N", 0.0, 0.0, 0, 0.0)
+{
+    _volumen = 0;
+    _graduacion_acohol = 0;
+}
 
 Bebida::Bebida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, float volumen, float graduacion_alcohol)
     : Articulo(id, nombre, precio_inicial, costo, stock, variacion)

@@ -3,6 +3,12 @@
 #include "Funciones.h"
 #include "ArchivoComida.h"
 
+ArchivoComida::ArchivoComida(const char* n)
+{
+    strcpy(nombre,n);
+}
+
+
 bool ArchivoComida::grabarRegistro(Comida obj){
     FILE *p;
     p=fopen(nombre, "ab");
@@ -26,14 +32,14 @@ bool ArchivoComida::listarRegistros(){
     return true;
 }
 
-int ArchivoComida::buscarRegistro(int num){
+int ArchivoComida::buscarRegistro(int id){
     FILE *p;
     Comida obj;
     p=fopen(nombre, "rb");
     int pos=0;
     if(p==NULL) return -1;
     while(fread(&obj, sizeof obj, 1, p)==1){
-                if(obj.getNumero()==num){
+                if(obj.getID()==id){
                     fclose(p);
                     return pos;
                 }
@@ -47,7 +53,7 @@ Comida ArchivoComida::leerRegistro(int pos){
     FILE *p;
     Comida obj;
     p=fopen(nombre, "rb");
-    obj.setNumero(-5);
+    obj.setID(-5);
     if(p==NULL) return obj;
     fseek(p, pos*sizeof obj,0);///función que permite ubicarse dentro del archivo
     fread(&obj, sizeof obj, 1, p);

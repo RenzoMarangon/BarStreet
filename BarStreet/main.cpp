@@ -1,10 +1,12 @@
 #include <iostream>
-
-
+#include "appManager.h"
 using namespace std;
 
 int main()
 {
-    cout << "Bienvenido al BarStreet" << endl;
+    AppManager app;
+
+    app.login();
+
     return 0;
 }

@@ -1,11 +1,20 @@
 #include <iostream>
 #include <cstring>
 #include "Comida.h"
-
+#include "Funciones.h"
 
 using namespace std;
 
-Comida::Comida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, float volumen, float graduacion_alcohol, std::string observacion, std::string guarnicion)
+Comida::Comida()
+    : Articulo(0, "N/N", 0.0, 0.0, 0, 0.0)
+{
+    string sinDescr = "S/D";
+
+    strcpy(_observacion, sinDescr.c_str());
+    strcpy(_guarnicion, sinDescr.c_str());
+}
+
+Comida::Comida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, std::string observacion, std::string guarnicion)
     : Articulo( id, nombre, precio_inicial, costo, stock, variacion )
 {
 
@@ -61,12 +70,12 @@ void Comida::Mostrar()
 {
 
     Articulo::Mostrar();
-    std::cout<< "Guarnicion: ";
-    std::cin >> _guarnicion;
-    std::cout<<endl;
+    std::cout << "Guarnicion: ";
+    std::cout << _guarnicion;
+    std::cout << endl;
 
-    std::cout<< "Observacion: ";
-    std::cin >> _observacion;
+    std::cout << "Observacion: ";
+    std::cout << _observacion;
     std::cout<<endl;
 
 }

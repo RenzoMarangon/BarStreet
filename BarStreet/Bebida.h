@@ -11,6 +11,7 @@ class Bebida : public Articulo{
         float _graduacion_acohol;
 
     public:
+        Bebida();
         Bebida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, float volumen, float graduacion_alcohol);
 
 
