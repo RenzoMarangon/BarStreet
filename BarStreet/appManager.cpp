@@ -1,8 +1,11 @@
 #include "appManager.h"
 #include <cstring>
+#include <cstdlib>
 #include "Terminal.h"
 #include "Comida.h"
 #include "ArchivoComida.h"
+#include "Bebida.h"
+#include "ArchivoBebida.h"
 
 /*************** clase usuario provisoria ***************************/
 bool User::verifyUser(std::string user, std::string pass){
@@ -160,29 +163,32 @@ void AppManager::Config(){
     terminal.pintarRectangulo(34,2,27,80);
 
     do{
-        terminal.crearBoton("ALTA PRODUCTOS",x,y,opc == 0);
-        terminal.crearBoton("BAJA PRODUCTOS",x,y+3,opc == 1);
-        terminal.crearBoton("MODIFICAR STOCK",x,y+6,opc == 2);
-        terminal.crearBoton("MODIFICAR PRECIO",x,y+9,opc == 3);
-        terminal.crearBoton("MODIFICAR USUARIOS",x,y+12,opc == 4);
-        terminal.crearBoton("COPIA DE SEGURIDAD",x,y+15,opc == 5);
-        terminal.crearBoton("RESTABLECER COPIA",x,y+18,opc == 6);
-        terminal.crearBoton("VOLVER",x,y+21,opc == 7);
+        terminal.crearBoton("ALTA PRODUCTOS",x,y-3,opc == 0);
+        terminal.crearBoton("BAJA PRODUCTOS",x,y,opc == 1);
+        terminal.crearBoton("MODIFICAR STOCK",x,y+3,opc == 2);
+        terminal.crearBoton("MODIFICAR PRECIO",x,y+6,opc == 3);
+        terminal.crearBoton("BUSCAR ARTICULO",x,y+9,opc == 4);
+        terminal.crearBoton("MODIFICAR USUARIOS",x,y+12,opc == 5);
+        terminal.crearBoton("COPIA DE SEGURIDAD",x,y+15,opc == 6);
+        terminal.crearBoton("RESTABLECER COPIA",x,y+18,opc == 7);
+        terminal.crearBoton("VOLVER",x,y+21,opc == 8);
 
         switch(rlutil::getkey()){
         case 14:    ///sube
             opc--;
-            if(opc < 0) opc = 7;
+            if(opc < 0) opc = 8;
             break;
         case 15:    ///baja
             opc++;
-            if(opc > 7) opc = 0;
+            if(opc > 8) opc = 0;
             break;
         case 1:     ///enter
             if(opc == 0)AltaProd();
             if(opc == 1)BajaProd();
-
-            if(opc == 7 ){
+            if(opc == 2)ModStock();
+            if(opc == 3)ModPrecio();
+            if(opc == 4)BuscarArticulo();
+            if(opc == 8 ){
                 terminal.pintarRectangulo(4,2,27,27);
                 return;
             }
@@ -380,7 +386,9 @@ void AppManager::AltaProd(){
 
     int x=60;
     int y=4;
-    std::string nombre;
+    ArchivoComida archiComida = "comidas.dat";
+    ArchivoBebida archiBebida = "bebidas.dat";
+    std::string nombre, id, precio_inicial, costo, stock, variacion, graduacion_acohol, volumen, observacion, guarnicion;
     int opcTipoProducto = 2;
 
 
@@ -391,9 +399,13 @@ void AppManager::AltaProd(){
 
 
     while(true){
-            terminal.crearBoton("Ingresar comida",x,y,opcTipoProducto==0);
-            terminal.crearBoton("Ingresar bebida",x,y+8,opcTipoProducto==1);
-            terminal.crearBoton("Volver",x,y+16,opcTipoProducto==2);
+
+
+            terminal.crearBoton("Ingresar bebida",x,y+8,opcTipoProducto==0);
+            terminal.crearBoton("Volver",x,y+16,opcTipoProducto==1);
+            terminal.crearBoton("Ingresar comida",x,y,opcTipoProducto==2);
+
+
 
             switch(rlutil::getkey()){
                 case 14:
@@ -405,35 +417,220 @@ void AppManager::AltaProd(){
                     if(opcTipoProducto > 2) opcTipoProducto = 0;
                     break;
                 case 1:
-                    if(opcTipoProducto == 0){
-                        terminal.pintarRectangulo(34,2,27,80);
-                        return;
-                    }
-
-                    if(opcTipoProducto == 1) {
-                        terminal.pintarRectangulo(34,2,27,80);
-                        return;
-
-                    }
-
                     if(opcTipoProducto == 2){
+                        terminal.pintarRectangulo(34,2,27,80);
+
+
+
+
+
+                        terminal.mostrarTexto("Crear nuevo objeto comida: ",x,y);
+                        terminal.mostrarTexto("_________________________ ",x,y+1);
+
+                        terminal.mostrarTexto("Ingresar ID: ",x,y+4);
+                        id = terminal.ingresarTexto(x + 22,y+4 ,true);
+
+                        terminal.mostrarTexto("Ingresar nombre: ",x,y+6);
+                        nombre = terminal.ingresarTexto(x + 22,y+6 ,true);
+
+                        terminal.mostrarTexto("Ingresar precio: ",x,y+8);
+                        precio_inicial = terminal.ingresarTexto(x + 22,y+8 ,true);
+
+                        terminal.mostrarTexto("Ingresar costo: ",x,y+10);
+                        costo = terminal.ingresarTexto(x + 22,y+10 ,true);
+
+                        terminal.mostrarTexto("Ingresar stock: ",x,y+12);
+                        stock = terminal.ingresarTexto(x + 22,y+12 ,true);
+
+                        terminal.mostrarTexto("Ingresar variacion: ",x,y+14);
+                        variacion = terminal.ingresarTexto(x + 22,y+14 ,true);
+
+                        terminal.mostrarTexto("Ingresar observacion: ",x,y+16);
+                        observacion = terminal.ingresarTexto(x + 22,y+16 ,true);
+
+
+                        terminal.mostrarTexto("Ingresar guarnicion: ",x,y+18);
+                        guarnicion = terminal.ingresarTexto(x + 22,y+18 ,true);
+
+                        int idToInt = std::atoi(id.c_str());
+
+                        Comida comida(idToInt, nombre, std::atof(precio_inicial.c_str()), std::atof(costo.c_str()), std::atoi(stock.c_str()), std::atof(variacion.c_str()), observacion, guarnicion);
+
+                        bool confirmado = false;
+
+                        int opc = 3;
+
+                        while( !confirmado )
+                        {
+                           terminal.crearBoton("Confirmar",x-16,y+20,opc==3);
+                            terminal.crearBoton("Cancelar",x+16,y+20,opc==4);
+
+                            switch(rlutil::getkey()){
+                                case 16:
+                                    opc--;
+                                    if(opc < 3) opc = 4;
+                                    break;
+                                case 17:
+                                    opc++;
+                                    if(opc > 4) opc = 3;
+                                    break;
+                                case 1:
+
+                                    if( opc == 4){
+
+                                        confirmado = true;
+                                        break;
+                                    }
+
+                                    if(opc == 3){
+                                        confirmado = true;
+                                        break;
+                                    }
+                            }
+
+                        }
+
+
+                        //Cancelo la creacion del objeto
+                        if( opc == 4){
+                            terminal.pintarRectangulo(34,2,27,80);
+                            terminal.mostrarTexto(">Creacion de objeto cancelada.",x,y);
+                            return;
+                        }
+
+                        //Pregunto si existe
+                        if(archiComida.buscarRegistro(idToInt) < 0 && archiBebida.buscarRegistro(idToInt) < 0){
+                            terminal.pintarRectangulo(34,2,27,80);
+                            bool grabo = archiComida.grabarRegistro(comida);
+
+                            if( grabo ){
+                                terminal.mostrarTexto(">Objeto comida creado correctamente.",x,y);
+                            }else{
+                                terminal.mostrarTexto(">Error al crear el objeto.",x,y);
+                             }
+
+                        }else{
+                            terminal.pintarRectangulo(34,2,27,80);
+                            terminal.mostrarTexto(">Ya existe un objeto con ese ID.",x,y);
+
+                        }
+
+                        rlutil::hidecursor();
+
+
+                        return;
+                    }
+
+
+                    if(opcTipoProducto == 0) {
+                        terminal.pintarRectangulo(34,2,27,80);
+
+
+                        terminal.mostrarTexto("Crear nuevo objeto bebida: ",x,y);
+                        terminal.mostrarTexto("_________________________ ",x,y+1);
+
+                        terminal.mostrarTexto("Ingresar ID: ",x,y+4);
+                        id = terminal.ingresarTexto(x + 22,y+4 ,true);
+
+                        terminal.mostrarTexto("Ingresar nombre: ",x,y+6);
+                        nombre = terminal.ingresarTexto(x + 22,y+6 ,true);
+
+                        terminal.mostrarTexto("Ingresar precio: ",x,y+8);
+                        precio_inicial = terminal.ingresarTexto(x + 22,y+8 ,true);
+
+                        terminal.mostrarTexto("Ingresar costo: ",x,y+10);
+                        costo = terminal.ingresarTexto(x + 22,y+10 ,true);
+
+                        terminal.mostrarTexto("Ingresar stock: ",x,y+10);
+                        stock = terminal.ingresarTexto(x + 22,y+12 ,true);
+
+                        terminal.mostrarTexto("Ingresar variacion: ",x,y+12);
+                        variacion = terminal.ingresarTexto(x + 22,y+14 ,true);
+
+                        terminal.mostrarTexto("Ingresar grad. acohol: ",x,y+14);
+                        graduacion_acohol = terminal.ingresarTexto(x + 22,y+16 ,true);
+
+                        terminal.mostrarTexto("Ingresar volumen: ",x,y+16);
+                        volumen = terminal.ingresarTexto(x + 22,y+18 ,true);
+
+                        int idToInt = std::atoi(id.c_str());
+
+                        Bebida bebida(idToInt, nombre, std::atof(precio_inicial.c_str()), std::atof(costo.c_str()), std::atoi(stock.c_str()), std::atof(variacion.c_str()), std::atof(volumen.c_str()), std::atof(graduacion_acohol.c_str()));
+
+                        bool confirmado = false;
+
+                        while( !confirmado ){
+
+                            terminal.crearBoton("Confirmar",x-16,y+20,opcTipoProducto==3);
+                            terminal.crearBoton("Cancelar",x+16,y+20,opcTipoProducto==4);
+
+                            switch(rlutil::getkey()){
+                                case 16:
+                                    opcTipoProducto--;
+                                    if(opcTipoProducto < 0) opcTipoProducto = 3;
+                                    break;
+                                case 17:
+                                    opcTipoProducto++;
+                                    if(opcTipoProducto > 2) opcTipoProducto = 4;
+                                    break;
+                                case 1:
+
+                                    if( opcTipoProducto == 4){
+
+                                        confirmado = true;
+                                        break;
+                                    }
+
+                                    if(opcTipoProducto == 3){
+                                        confirmado = true;
+                                        break;
+                                    }
+                            }
+                        }
+
+
+                        //Cancelo la creacion del objeto
+                        if( opcTipoProducto == 4){
+                            terminal.pintarRectangulo(34,2,27,80);
+                            terminal.mostrarTexto(">Creacion de objeto cancelada.",x,y);
+                            return;
+                        }
+
+
+                        //Pregunto si existe
+                        if(archiComida.buscarRegistro(idToInt) < 0 && archiBebida.buscarRegistro(idToInt) < 0){
+                            terminal.pintarRectangulo(34,2,27,80);
+                            bool grabo = archiBebida.grabarRegistro(bebida);
+
+                            if( grabo ){
+                                terminal.mostrarTexto(">Objeto bebida creado correctamente.",x,y);
+                            }else{
+                                terminal.mostrarTexto(">Error al crear el objeto.",x,y);
+                             }
+
+                        }else{
+                            terminal.pintarRectangulo(34,2,27,80);
+                            terminal.mostrarTexto(">Ya existe un objeto con ese ID.",x,y);
+
+                        }
+
+                        rlutil::hidecursor();
+
+
+                        return;
+
+
+                        return;
+
+                    }
+
+                    if(opcTipoProducto == 1){
                         terminal.pintarRectangulo(34,2,27,80);
                         return;
                     }
                     break;
                 }
-    }
-
-
-
-
-    Comida comida;
-    ArchivoComida archiComida = "comida.dat";
-
-
-
-
-
+        }
 
 
     rlutil::anykey();
@@ -442,30 +639,793 @@ void AppManager::AltaProd(){
 
 void AppManager::BajaProd(){
     Terminal terminal;
-    int x=50;
-    int y=10;
-
-
-
-
-
-
 
     terminal.pintarRectangulo(34,2,27,80);
-    terminal.crearBoton("hola",x,y,true);
-    rlutil::anykey();
+    int x=60;
+    int y=4;
+
+    ArchivoComida archiComida = "comidas.dat";
+    ArchivoBebida archiBebida = "bebidas.dat";
+
+
+    std::string id;
+    int opc = 0, idEncontrado = -1;
+
+    while(true){
+
+
+
+
+        terminal.crearBoton("Borrar comida",x,y,opc==0);
+        terminal.crearBoton("Borrar bebida",x,y+8,opc==1);
+        terminal.crearBoton("Volver",x,y+16,opc==2);
+
+
+
+        switch(rlutil::getkey()){
+            case 14:
+                opc--;
+                if(opc < 0) opc = 2;
+                break;
+            case 15:
+                opc++;
+                if(opc > 2) opc = 0;
+                break;
+            case 1:
+            {
+
+
+                if(opc == 0){
+                    Comida comida;
+
+                    terminal.pintarRectangulo(34,2,27,80);
+
+                    terminal.mostrarTexto("Ingrese el id del articulo: ",x,y);
+                    id = terminal.ingresarTexto(x + 30,y ,true);
+
+                    //Busco el registro;
+                    idEncontrado = archiComida.buscarRegistro(std::atoi(id.c_str()));
+                    comida = archiComida.leerRegistro(idEncontrado);
+
+
+                    if( idEncontrado >= 0 && comida.getEstado() ){
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+
+
+
+
+                        terminal.mostrarTexto("Esta seguro que desea eliminar el siguiente articulo?",x,y);
+                        terminal.mostrarTexto("ID: " + std::to_string(comida.getID()) ,x,y+4);
+                        terminal.mostrarTexto("Nombre: " + comida.getNombre(),x,y+6);
+                        terminal.mostrarTexto("Precio: " + std::to_string(comida.getPrecioInicial()),x,y+8);
+                        terminal.mostrarTexto("Costo: " + std::to_string(comida.getCosto()),x,y+10);
+                        terminal.mostrarTexto("Stock: " + std::to_string(comida.getStock()),x,y+12);
+                        terminal.mostrarTexto("Variacion: " + std::to_string(comida.getVariacion()),x,y+14);
+                        terminal.mostrarTexto("Guarnicion: " + comida.getGuarnicion(),x,y+16);
+                        terminal.mostrarTexto("Observacion: " + comida.getObservacion(),x,y+18);
+
+
+                        bool confirmado = false;
+
+                        while( !confirmado ){
+
+                            terminal.crearBoton("Confirmar",x-16,y+20,opc==3);
+                            terminal.crearBoton("Cancelar",x+16,y+20,opc==4);
+
+                            switch(rlutil::getkey()){
+                                case 16:
+                                    opc--;
+                                    if(opc < 0) opc = 3;
+                                    break;
+                                case 17:
+                                    opc++;
+                                    if(opc > 2) opc = 4;
+                                    break;
+                                case 1:
+
+                                    if( opc == 4){
+
+                                        confirmado = true;
+                                        break;
+                                    }
+
+                                    if(opc == 3){
+                                        confirmado = true;
+                                        break;
+                                    }
+                            }
+                        }
+
+                        //Si pongo salir, salgo del primer while
+                        if( opc == 4){
+                            terminal.pintarRectangulo(34,2,27,80);
+                            terminal.mostrarTexto(">Baja de articulo cancelada",x,y);
+                            return;
+                        };
+
+
+                        comida.setEstado(false);
+                        bool modificar = archiComida.modificarRegistro(comida,idEncontrado);
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        if( modificar )
+                        {
+                            terminal.mostrarTexto(">Comida borrada correctamente",x,y);
+                            return;
+                        }else{
+                            terminal.mostrarTexto(">Error al borrar comida",x,y);
+                            return;
+                        }
+
+
+                    }else{
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        terminal.mostrarTexto("No se encontro el articulo.",x,y);
+                        return;
+                    }
+
+
+
+
+
+
+                }
+
+               if(opc == 1){
+                    Bebida bebida;
+
+                    terminal.pintarRectangulo(34,2,27,80);
+
+                    terminal.mostrarTexto("Ingrese el id del articulo: ",x,y);
+                    id = terminal.ingresarTexto(x + 30,y ,true);
+
+                    //Busco el registro;
+                    idEncontrado = archiBebida.buscarRegistro(std::atoi(id.c_str()));
+                    bebida = archiBebida.leerRegistro(idEncontrado);
+
+
+                    if( idEncontrado >= 0 && bebida.getEstado() ){
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+
+
+
+
+                        terminal.mostrarTexto("Esta seguro que desea eliminar el siguiente articulo?",x,y);
+                        terminal.mostrarTexto("ID: " + std::to_string(bebida.getID()) ,x+2,y+4);
+                        terminal.mostrarTexto("Nombre: " + bebida.getNombre(),x+2,y+6);
+                        terminal.mostrarTexto("Precio: " + std::to_string(bebida.getPrecioInicial()),x+2,y+8);
+                        terminal.mostrarTexto("Costo: " + std::to_string(bebida.getCosto()),x+2,y+10);
+                        terminal.mostrarTexto("Stock: " + std::to_string(bebida.getStock()),x+2,y+12);
+                        terminal.mostrarTexto("Variacion: " + std::to_string(bebida.getVariacion()),x+2,y+14);
+                        terminal.mostrarTexto("Grad. alcoholica: " + std::to_string(bebida.getGraduacionAlcoholica()),x+2,y+16);
+                        terminal.mostrarTexto("Volumen: " + std::to_string(bebida.getVolumen()),x+2,y+18);
+
+
+                        bool confirmado = false;
+
+                        while( !confirmado ){
+
+                            terminal.crearBoton("Confirmar",x-16,y+20,opc==3);
+                            terminal.crearBoton("Cancelar",x+16,y+20,opc==4);
+
+                            switch(rlutil::getkey()){
+                                case 16:
+                                    opc--;
+                                    if(opc < 0) opc = 3;
+                                    break;
+                                case 17:
+                                    opc++;
+                                    if(opc > 2) opc = 4;
+                                    break;
+                                case 1:
+
+                                    if( opc == 4){
+
+                                        confirmado = true;
+                                        break;
+                                    }
+
+                                    if(opc == 3){
+                                        confirmado = true;
+                                        break;
+                                    }
+                            }
+                        }
+
+                        //Si pongo salir, salgo del primer while
+                        if( opc == 4){
+                            terminal.pintarRectangulo(34,2,27,80);
+                            terminal.mostrarTexto(">Baja de articulo cancelada",x,y);
+                            return;
+                        };
+
+
+                        bebida.setEstado(false);
+                        bool modificar = archiBebida.modificarRegistro(bebida,idEncontrado);
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        if( modificar )
+                        {
+                            terminal.mostrarTexto(">Comida borrada correctamente",x,y);
+                            return;
+                        }else{
+                            terminal.mostrarTexto(">Error al borrar bebida",x,y);
+                            return;
+                        }
+
+
+                    }else{
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        terminal.mostrarTexto("No se encontro el articulo.",x,y);
+                        return;
+                    }
+                }
+
+                if(opc == 2) return;
+        }
+
+        }
+    }
+
+
 }
 
 void AppManager::ModStock(){
+
     Terminal terminal;
+
     terminal.pintarRectangulo(34,2,27,80);
-    rlutil::anykey();
+    int x=60;
+    int y=4;
+
+    ArchivoComida archiComida = "comidas.dat";
+    ArchivoBebida archiBebida = "bebidas.dat";
+
+
+    std::string id, stock;
+    int opc = 0, idEncontrado = -1;
+
+    while(true){
+
+        terminal.crearBoton("Modificar stock comida",x,y,opc==0);
+        terminal.crearBoton("Modificar stock bebida",x,y+8,opc==1);
+        terminal.crearBoton("Volver",x,y+16,opc==2);
+
+        switch(rlutil::getkey()){
+            case 14:
+                opc--;
+                if(opc < 0) opc = 2;
+                break;
+            case 15:
+                opc++;
+                if(opc > 2) opc = 0;
+                break;
+           case 1:
+               if(opc == 0){
+                    Comida comida;
+
+                    terminal.pintarRectangulo(34,2,27,80);
+
+                    terminal.mostrarTexto("Ingrese el id del articulo: ",x,y);
+                    id = terminal.ingresarTexto(x + 30,y ,true);
+
+                    //Busco el registro;
+                    idEncontrado = archiComida.buscarRegistro(std::atoi(id.c_str()));
+                    comida = archiComida.leerRegistro(idEncontrado);
+
+
+                    if( idEncontrado >= 0 && comida.getEstado() ){
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+
+
+
+
+                        terminal.mostrarTexto("Usted va a modificar el siguiente articulo:",x-10,y);
+                        terminal.mostrarTexto("ID: " + std::to_string(comida.getID()) ,x,y+4);
+                        terminal.mostrarTexto("Nombre: " + comida.getNombre(),x,y+6);
+                        terminal.mostrarTexto("Stock: " + std::to_string(comida.getStock()),x,y+8);
+
+
+                        terminal.mostrarTexto("Ingresar nuevo stock: ",x,y+14);
+
+                        stock = terminal.ingresarTexto(x+25,y+14,true);
+
+
+                        comida.setStock( std::atof(stock.c_str()) );
+
+                        bool confirmado = false;
+
+                        while( !confirmado ){
+
+                            terminal.crearBoton("Confirmar",x-16,y+20,opc==3);
+                            terminal.crearBoton("Cancelar",x+16,y+20,opc==4);
+
+                            switch(rlutil::getkey()){
+                                case 16:
+                                    opc--;
+                                    if(opc < 0) opc = 3;
+                                    break;
+                                case 17:
+                                    opc++;
+                                    if(opc > 2) opc = 4;
+                                    break;
+                                case 1:
+
+                                    if( opc == 4){
+
+                                        confirmado = true;
+                                        break;
+                                    }
+
+                                    if(opc == 3){
+                                        confirmado = true;
+                                        break;
+                                    }
+                            }
+                        }
+
+                        //Si pongo salir, salgo del primer while
+                        if( opc == 4){
+                            terminal.pintarRectangulo(34,2,27,80);
+                            terminal.mostrarTexto(">Modificacion de articulo cancelada",x,y);
+                            return;
+                        };
+
+
+
+
+                        bool modificar = archiComida.modificarRegistro(comida,idEncontrado);
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        if( modificar )
+                        {
+                            terminal.mostrarTexto(">Stock modificado correctamente",x,y);
+                            return;
+                        }else{
+                            terminal.mostrarTexto(">Error al borrar modificar stock",x,y);
+                            return;
+                        }
+
+
+                    }else{
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        terminal.mostrarTexto("No se encontro el articulo.",x,y);
+                        return;
+                    }
+                }
+
+                if(opc == 1){
+                    Bebida bebida;
+
+                    terminal.pintarRectangulo(34,2,27,80);
+
+                    terminal.mostrarTexto("Ingrese el id del articulo: ",x,y);
+                    id = terminal.ingresarTexto(x + 30,y ,true);
+
+                    //Busco el registro;
+                    idEncontrado = archiBebida.buscarRegistro(std::atoi(id.c_str()));
+                    bebida = archiBebida.leerRegistro(idEncontrado);
+
+
+                    if( idEncontrado >= 0 && bebida.getEstado() ){
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+
+                        terminal.mostrarTexto("Usted va a modificar el siguiente articulo:",x-10,y);
+                        terminal.mostrarTexto("ID: " + std::to_string(bebida.getID()) ,x,y+4);
+                        terminal.mostrarTexto("Nombre: " + bebida.getNombre(),x,y+6);
+                        terminal.mostrarTexto("Stock: " + std::to_string(bebida.getStock()),x,y+8);
+
+
+                        terminal.mostrarTexto("Ingresar nuevo stock: ",x,y+14);
+
+                        stock = terminal.ingresarTexto(x+25,y+14,true);
+
+
+                        bebida.setStock( std::atof(stock.c_str()) );
+
+                        bool confirmado = false;
+
+                        while( !confirmado ){
+
+                            terminal.crearBoton("Confirmar",x-16,y+20,opc==3);
+                            terminal.crearBoton("Cancelar",x+16,y+20,opc==4);
+
+                            switch(rlutil::getkey()){
+                                case 16:
+                                    opc--;
+                                    if(opc < 0) opc = 3;
+                                    break;
+                                case 17:
+                                    opc++;
+                                    if(opc > 2) opc = 4;
+                                    break;
+                                case 1:
+
+                                    if( opc == 4){
+
+                                        confirmado = true;
+                                        break;
+                                    }
+
+                                    if(opc == 3){
+                                        confirmado = true;
+                                        break;
+                                    }
+                            }
+                        }
+
+                        //Si pongo salir, salgo del primer while
+                        if( opc == 4){
+                            terminal.pintarRectangulo(34,2,27,80);
+                            terminal.mostrarTexto(">Modificacion de articulo cancelada",x,y);
+                            return;
+                        };
+
+
+
+
+                        bool modificar = archiBebida.modificarRegistro(bebida,idEncontrado);
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        if( modificar )
+                        {
+                            terminal.mostrarTexto(">Stock modificado correctamente",x,y);
+                            return;
+                        }else{
+                            terminal.mostrarTexto(">Error al borrar modificar precio",x,y);
+                            return;
+                        }
+
+
+                    }else{
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        terminal.mostrarTexto("No se encontro el articulo.",x,y);
+                        return;
+                    }
+                }
+
+
+                if( opc==2){
+                    terminal.pintarRectangulo(34,2,27,80);
+                    return;
+
+                }
+
+
+        }
+    }
 }
 
 void AppManager::ModPrecio(){
+
     Terminal terminal;
+
     terminal.pintarRectangulo(34,2,27,80);
-    rlutil::anykey();
+    int x=60;
+    int y=4;
+
+    ArchivoComida archiComida = "comidas.dat";
+    ArchivoBebida archiBebida = "bebidas.dat";
+
+
+    std::string id, precio;
+    int opc = 0, idEncontrado = -1;
+
+    while(true){
+
+        terminal.crearBoton("Modificar precio comida",x,y,opc==0);
+        terminal.crearBoton("Modificar precio bebida",x,y+8,opc==1);
+        terminal.crearBoton("Volver",x,y+16,opc==2);
+
+        switch(rlutil::getkey()){
+            case 14:
+                opc--;
+                if(opc < 0) opc = 2;
+                break;
+            case 15:
+                opc++;
+                if(opc > 2) opc = 0;
+                break;
+           case 1:
+                {
+
+
+                   if(opc == 0){
+                        Comida comida;
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        terminal.mostrarTexto("Ingrese el id del articulo: ",x,y);
+                        id = terminal.ingresarTexto(x + 30,y ,true);
+
+                        //Busco el registro;
+                        idEncontrado = archiComida.buscarRegistro(std::atoi(id.c_str()));
+                        comida = archiComida.leerRegistro(idEncontrado);
+
+
+                        if( idEncontrado >= 0 && comida.getEstado() ){
+
+                            terminal.pintarRectangulo(34,2,27,80);
+
+
+
+
+
+                            terminal.mostrarTexto("Esta seguro que desea modificar el precio del siguiente articulo?",x,y);
+                            terminal.mostrarTexto("ID: " + std::to_string(comida.getID()) ,x,y+4);
+                            terminal.mostrarTexto("Nombre: " + comida.getNombre(),x,y+6);
+                            terminal.mostrarTexto("Precio: " + std::to_string(comida.getPrecioInicial()),x,y+8);
+                            terminal.mostrarTexto("Costo: " + std::to_string(comida.getCosto()),x,y+10);
+
+                            terminal.mostrarTexto("Ingresar nuevo precio: ",x,y+14);
+
+                            precio = terminal.ingresarTexto(x+15,y+14,true);
+
+
+                            comida.setPrecioInicial( std::atof(precio.c_str()) );
+
+                            bool confirmado = false;
+
+                            while( !confirmado ){
+
+                                terminal.crearBoton("Confirmar",x-16,y+20,opc==3);
+                                terminal.crearBoton("Cancelar",x+16,y+20,opc==4);
+
+                                switch(rlutil::getkey()){
+                                    case 16:
+                                        opc--;
+                                        if(opc < 0) opc = 3;
+                                        break;
+                                    case 17:
+                                        opc++;
+                                        if(opc > 2) opc = 4;
+                                        break;
+                                    case 1:
+
+                                        if( opc == 4){
+
+                                            confirmado = true;
+                                            break;
+                                        }
+
+                                        if(opc == 3){
+                                            confirmado = true;
+                                            break;
+                                        }
+                                }
+                            }
+
+                            //Si pongo salir, salgo del primer while
+                            if( opc == 4){
+                                terminal.pintarRectangulo(34,2,27,80);
+                                terminal.mostrarTexto(">Modificacion de articulo cancelada",x,y);
+                                return;
+                            };
+
+
+
+
+                            bool modificar = archiComida.modificarRegistro(comida,idEncontrado);
+
+                            terminal.pintarRectangulo(34,2,27,80);
+
+                            if( modificar )
+                            {
+                                terminal.mostrarTexto(">Precio modificado correctamente",x,y);
+                                return;
+                            }else{
+                                terminal.mostrarTexto(">Error al borrar modificar precio",x,y);
+                                return;
+                            }
+
+
+                        }else{
+
+                            terminal.pintarRectangulo(34,2,27,80);
+
+                            terminal.mostrarTexto("No se encontro el articulo.",x,y);
+                            return;
+                        }
+                    }
+
+                    if(opc == 1){
+                        Bebida bebida;
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        terminal.mostrarTexto("Ingrese el id del articulo: ",x,y);
+                        id = terminal.ingresarTexto(x + 30,y ,true);
+
+                        //Busco el registro;
+                        idEncontrado = archiBebida.buscarRegistro(std::atoi(id.c_str()));
+                        bebida = archiBebida.leerRegistro(idEncontrado);
+
+
+                        if( idEncontrado >= 0 && bebida.getEstado() ){
+
+                            terminal.pintarRectangulo(34,2,27,80);
+
+
+
+
+
+                            terminal.mostrarTexto("Esta seguro que desea modificar el precio del siguiente articulo?",x,y);
+                            terminal.mostrarTexto("ID: " + std::to_string(bebida.getID()) ,x,y+4);
+                            terminal.mostrarTexto("Nombre: " + bebida.getNombre(),x,y+6);
+                            terminal.mostrarTexto("Precio: " + std::to_string(bebida.getPrecioInicial()),x,y+8);
+                            terminal.mostrarTexto("Costo: " + std::to_string(bebida.getCosto()),x,y+10);
+
+                            terminal.mostrarTexto("Ingresar nuevo precio: ",x,y+14);
+
+                            precio = terminal.ingresarTexto(x+15,y+14,true);
+
+
+                            bebida.setPrecioInicial( std::atof(precio.c_str()) );
+
+                            bool confirmado = false;
+
+                            while( !confirmado ){
+
+                                terminal.crearBoton("Confirmar",x-16,y+20,opc==3);
+                                terminal.crearBoton("Cancelar",x+16,y+20,opc==4);
+
+                                switch(rlutil::getkey()){
+                                    case 16:
+                                        opc--;
+                                        if(opc < 0) opc = 3;
+                                        break;
+                                    case 17:
+                                        opc++;
+                                        if(opc > 2) opc = 4;
+                                        break;
+                                    case 1:
+
+                                        if( opc == 4){
+
+                                            confirmado = true;
+                                            break;
+                                        }
+
+                                        if(opc == 3){
+                                            confirmado = true;
+                                            break;
+                                        }
+                                }
+                            }
+
+                            //Si pongo salir, salgo del primer while
+                            if( opc == 4){
+                                terminal.pintarRectangulo(34,2,27,80);
+                                terminal.mostrarTexto(">Modificacion de articulo cancelada",x,y);
+                                return;
+                            };
+
+
+
+
+                            bool modificar = archiBebida.modificarRegistro(bebida,idEncontrado);
+
+                            terminal.pintarRectangulo(34,2,27,80);
+
+                            if( modificar )
+                            {
+                                terminal.mostrarTexto(">Precio modificado correctamente",x,y);
+                                return;
+                            }else{
+                                terminal.mostrarTexto(">Error al borrar modificar precio",x,y);
+                                return;
+                            }
+
+
+                        }else{
+
+                            terminal.pintarRectangulo(34,2,27,80);
+
+                            terminal.mostrarTexto("No se encontro el articulo.",x,y);
+                            return;
+                        }
+                    }
+
+
+                    if( opc == 2 )
+                    {
+                        terminal.pintarRectangulo(34,2,27,80);
+                        return;
+                    }
+
+                }
+            }
+
+
+        }
+}
+
+
+void AppManager::BuscarArticulo(){
+
+ Terminal terminal;
+
+    terminal.pintarRectangulo(34,2,27,80);
+    int x=60;
+    int y=4;
+
+    ArchivoComida archiComida = "comidas.dat";
+    ArchivoBebida archiBebida = "bebidas.dat";
+
+
+    std::string id;
+    int opc = 0, idEncontrado = -1;
+
+    while(true){
+
+        terminal.crearBoton("Buscar comida",x,y,opc==0);
+        terminal.crearBoton("Buscar bebida",x,y+8,opc==1);
+        terminal.crearBoton("Volver",x,y+16,opc==2);
+
+        switch(rlutil::getkey()){
+            case 14:
+                opc--;
+                if(opc < 0) opc = 2;
+                break;
+            case 15:
+                opc++;
+                if(opc > 2) opc = 0;
+                break;
+           case 1:
+                {
+
+
+                   if(opc == 0){
+                        Comida comida;
+
+                        terminal.pintarRectangulo(34,2,27,80);
+
+                        terminal.mostrarTexto("Ingrese el id del articulo: ",x,y);
+                        id = terminal.ingresarTexto(x + 30,y ,true);
+
+                        //Busco el registro;
+                        idEncontrado = archiComida.buscarRegistro(std::atoi(id.c_str()));
+                        comida = archiComida.leerRegistro(idEncontrado);
+
+
+                        if( idEncontrado >= 0 && comida.getEstado() ){
+
+                            terminal.pintarRectangulo(34,2,27,80);
+
+
+
+
+
+                            terminal.mostrarTexto("Esta seguro que desea modificar el precio del siguiente articulo?",x,y);
+                            terminal.mostrarTexto("ID: " + std::to_string(comida.getID()) ,x,y+4);
+                            terminal.mostrarTexto("Nombre: " + comida.getNombre(),x,y+6);
+                            terminal.mostrarTexto("Precio: " + std::to_string(comida.getPrecioInicial()),x,y+8);
+                            terminal.mostrarTexto("Costo: " + std::to_string(comida.getCosto()),x,y+10);
+                        }
+                   }
+                }
+        }
+    }
 }
 
 void AppManager::GenerarBackup(){

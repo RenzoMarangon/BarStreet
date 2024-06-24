@@ -38,6 +38,7 @@ private:
     void BajaProd();
     void ModStock();
     void ModPrecio();
+    void BuscarArticulo();
     void GenerarBackup();
     void CargarBackup();
 

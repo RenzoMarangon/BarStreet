@@ -1,0 +1,119 @@
+# depslib dependency file v1.0
+1718927036 source:e:\proyectos\barstreet\barstreet\appmanager.cpp
+	"appManager.h"
+	<cstring>
+	<cstdlib>
+	"Terminal.h"
+	"Comida.h"
+	"ArchivoComida.h"
+	"Bebida.h"
+	"ArchivoBebida.h"
+
+1718926853 e:\proyectos\barstreet\barstreet\appmanager.h
+	<iostream>
+
+1716681342 e:\proyectos\barstreet\barstreet\terminal.h
+	"rlutil.h"
+	<windows.h>
+	<iostream>
+
+1716681342 e:\proyectos\barstreet\barstreet\rlutil.h
+	<iostream>
+	<string>
+	<cstdio>
+	<stdio.h>
+	<string.h>
+	<windows.h>
+	<conio.h>
+	<termios.h>
+	<unistd.h>
+	<sys/ioctl.h>
+	<sys/types.h>
+	<sys/time.h>
+
+1718373134 e:\proyectos\barstreet\barstreet\comida.h
+	<string>
+	"Articulo.h"
+	"Funciones.h"
+
+1718336407 e:\proyectos\barstreet\barstreet\articulo.h
+	<string>
+	"Funciones.h"
+
+1718336407 e:\proyectos\barstreet\barstreet\funciones.h
+	<cstring>
+
+1718372361 e:\proyectos\barstreet\barstreet\archivocomida.h
+	<iostream>
+	<cstdlib>
+	<cstring>
+	"comida.h"
+
+1718372600 source:e:\proyectos\barstreet\barstreet\archivobebida.cpp
+	<iostream>
+	<cstring>
+	"Funciones.h"
+	"ArchivoBebida.h"
+	"Bebida.h"
+
+1718372394 e:\proyectos\barstreet\barstreet\archivobebida.h
+	<iostream>
+	<cstdlib>
+	<cstring>
+	"bebida.h"
+
+1718372591 e:\proyectos\barstreet\barstreet\bebida.h
+	<string>
+	"Articulo.h"
+
+1718372303 source:e:\proyectos\barstreet\barstreet\archivocomida.cpp
+	<iostream>
+	<cstring>
+	"Funciones.h"
+	"ArchivoComida.h"
+
+1718336407 source:e:\proyectos\barstreet\barstreet\articulo.cpp
+	<iostream>
+	<cstring>
+	"Articulo.h"
+
+1718668020 source:e:\proyectos\barstreet\barstreet\bebida.cpp
+	<iostream>
+	<cstring>
+	"Articulo.h"
+	"Bebida.h"
+
+1718668290 source:e:\proyectos\barstreet\barstreet\comida.cpp
+	<iostream>
+	<cstring>
+	"Comida.h"
+	"Funciones.h"
+
+1718336407 source:e:\proyectos\barstreet\barstreet\fecha.cpp
+	<iostream>
+	<ctime>
+	"Fecha.h"
+
+1718336407 e:\proyectos\barstreet\barstreet\fecha.h
+	<string>
+
+1718336407 source:e:\proyectos\barstreet\barstreet\funciones.cpp
+	<iostream>
+	<cstring>
+
+1718336407 source:e:\proyectos\barstreet\barstreet\hora.cpp
+	<iostream>
+	<ctime>
+	"Hora.h"
+
+1718336407 e:\proyectos\barstreet\barstreet\hora.h
+	<string>
+
+1716681342 source:e:\proyectos\barstreet\barstreet\main.cpp
+	<iostream>
+	"appManager.h"
+
+1716681342 source:e:\proyectos\barstreet\barstreet\terminal.cpp
+	"Terminal.h"
+	<cstring>
+
