@@ -1,19 +1,18 @@
 #pragma once
-#ifndef BEBIDA_H_INCLUDED
-#define BEBIDA_H_INCLUDED
-#include <string>
+#include <iostream>
 #include "Articulo.h"
 
 
 class Bebida : public Articulo{
     private:
+        //static int contador;
         float _volumen;
         float _graduacion_acohol;
 
     public:
         Bebida();
-        Bebida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion, float volumen, float graduacion_alcohol);
-
+        Bebida(char letraID, int nroID, std::string nombre, int stock, float costo, float precio_inicial, float variacion, bool estado,
+               float volumen, float graduacion_alcohol);
 
         float getVolumen();
         void setVolumen( float volumen );
@@ -21,8 +20,6 @@ class Bebida : public Articulo{
         float getGraduacionAlcoholica();
         void setGraduacionAlcoholica( float graduacion_alcohol );
 
-        void Cargar();
-        void Mostrar();
+
 };
 
-#endif // BEBIDA_H_INCLUDED

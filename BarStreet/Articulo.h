@@ -4,15 +4,18 @@
 
 #include <string>
 
-#include "Funciones.h"
 
 class Articulo
 {
     public:
-        Articulo(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion);
+        Articulo();
+        Articulo(char letraID, int nroID, std::string nombre, int stock, float costo, float precio_inicial, float variacion, bool estado);
 
-        int getID();
-        void setID(int id);
+        char getLetraID();
+        void setLetraID(char letraID);
+
+        int getNroID();
+        void setNroID(int nroID);
 
         std::string getNombre();
         void setNombre(std::string nombre);
@@ -32,11 +35,11 @@ class Articulo
         bool getEstado();
         void setEstado(bool estado);
 
-        void Cargar();
-        void Mostrar();
+        std::string getLetrayNroID();
 
-    private:
-        int _id;
+    protected:
+        char _letraID;
+        int _nroID;
         char _nombre[50];
         int _stock;
         float _costo;

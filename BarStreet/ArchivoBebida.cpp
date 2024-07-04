@@ -1,8 +1,9 @@
 #include <iostream>
 #include <cstring>
-#include "Funciones.h"
+
 #include "ArchivoBebida.h"
 #include "Bebida.h"
+#include "ArchivoArticulo.h"
 using namespace std;
 
 ArchivoBebida::ArchivoBebida(const char* n)
@@ -16,22 +17,13 @@ bool ArchivoBebida::grabarRegistro(Bebida obj){
     if(p==NULL) return false;
     bool escribio=fwrite(&obj, sizeof obj, 1, p);
     fclose(p);
-    return escribio;
-}
+
+    bool escribioArticulo = ArchivoArticulo().grabarRegistro(Articulo(obj.getLetraID(),obj.getNroID(),obj.getNombre(),obj.getStock(),obj.getCosto(),obj.getPrecioInicial(),obj.getVariacion(),obj.getEstado()));
 
 
-bool ArchivoBebida::listarRegistros(){
-    FILE *p;
-    Bebida obj;
-    p=fopen(nombre, "rb");
-    if(p==NULL) return false;
-    while(fread(&obj, sizeof obj, 1, p)==1){
-            obj.Mostrar();
-            cout<<endl;
-    }
-    fclose(p);
-    return true;
+    return (escribio && escribioArticulo);
 }
+
 
 int ArchivoBebida::buscarRegistro(int id){
     FILE *p;
@@ -40,7 +32,7 @@ int ArchivoBebida::buscarRegistro(int id){
     int pos=0;
     if(p==NULL) return -1;
     while(fread(&obj, sizeof obj, 1, p)==1){
-                if(obj.getID()==id){
+                if(obj.getNroID()==id){
                     fclose(p);
                     return pos;
                 }
@@ -54,12 +46,24 @@ Bebida ArchivoBebida::leerRegistro(int pos){
     FILE *p;
     Bebida obj;
     p=fopen(nombre, "rb");
-    obj.setID(-5);
     if(p==NULL) return obj;
     fseek(p, pos*sizeof obj,0);///función que permite ubicarse dentro del archivo
     fread(&obj, sizeof obj, 1, p);
     fclose(p);
     return obj;
+}
+void ArchivoBebida::leerTodos(Bebida registros[], int cantidad){
+   FILE *pFile;
+
+   pFile = fopen(nombre, "rb");
+
+   if(pFile == nullptr){
+      return;
+   }
+
+   fread(registros, sizeof(Bebida), cantidad, pFile);
+
+   fclose(pFile);
 }
 
 bool ArchivoBebida::modificarRegistro(Bebida obj, int pos){
@@ -69,7 +73,11 @@ bool ArchivoBebida::modificarRegistro(Bebida obj, int pos){
     fseek(p, pos*sizeof obj,0);///función que permite ubicarse dentro del archivo
     bool escribio=fwrite(&obj, sizeof obj, 1, p);
     fclose(p);
-    return escribio;
+
+
+    bool escribioArticulo = ArchivoArticulo().modificarRegistro(Articulo(obj.getLetraID(),obj.getNroID(),obj.getNombre(),obj.getStock(),obj.getCosto(),obj.getPrecioInicial(),obj.getVariacion(),obj.getEstado()),pos);
+
+    return (escribio && escribioArticulo);
 }
 
 int ArchivoBebida::contarRegistros(){
@@ -80,4 +88,15 @@ int ArchivoBebida::contarRegistros(){
     int tam=ftell(p);///me devuelve la cantidad de bytes que hay desde el principio del archivo a la posición actual del indicador de pFILE.
     fclose(p);
     return tam/sizeof(Bebida);
+}
+
+int ArchivoBebida::getNuevoID(){
+    int cantidad = contarRegistros();
+
+    if(cantidad>0){
+        return leerRegistro(cantidad-1).getNroID()+1;
+    }
+    else{
+        return 1;
+    }
 }

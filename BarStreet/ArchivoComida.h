@@ -14,10 +14,11 @@ class ArchivoComida{
         ArchivoComida(const char *n="comida.dat");
         bool grabarRegistro(Comida obj);
         Comida leerRegistro(int pos);
+        void leerTodos(Comida registros[], int cantidad);
         int buscarRegistro(int num);
         int contarRegistros();
         bool modificarRegistro(Comida obj, int pos);
-        bool listarRegistros();
+        int getNuevoID();
 
 };
 

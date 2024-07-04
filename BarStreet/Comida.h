@@ -1,20 +1,17 @@
 #pragma once
-#ifndef COMIDA_H_INCLUDED
-#define COMIDA_H_INCLUDED
-#include <string>
+#include <iostream>
 #include "Articulo.h"
-#include "Funciones.h"
 
-using namespace std;
 
 class Comida : public Articulo{
     private:
-        char _observacion[100];
-        char _guarnicion[100];
+        char _observacion[20];
+        char _guarnicion[20];
 
     public:
         Comida();
-        Comida(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion,  std::string observacion, std::string guarnicion);
+        Comida(char letraID, int nroID, std::string nombre, int stock, float costo, float precio_inicial, float variacion, bool estado,
+               std::string observacion, std::string guarnicion);
 
         std::string getObservacion();
         void setObservacion(std::string observacion);
@@ -22,9 +19,6 @@ class Comida : public Articulo{
         std::string getGuarnicion();
         void setGuarnicion(std::string guarnicion);
 
-        void Cargar();
-        void Mostrar();
 
 };
 
-#endif // COMIDA_H_INCLUDED

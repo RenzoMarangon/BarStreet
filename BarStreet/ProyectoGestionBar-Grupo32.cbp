@@ -32,10 +32,18 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="AppManager.cpp" />
+		<Unit filename="AppManager.h" />
+		<Unit filename="ArchivoArticulo.cpp" />
+		<Unit filename="ArchivoArticulo.h" />
 		<Unit filename="ArchivoBebida.cpp" />
 		<Unit filename="ArchivoBebida.h" />
 		<Unit filename="ArchivoComida.cpp" />
 		<Unit filename="ArchivoComida.h" />
+		<Unit filename="ArchivoUsuario.cpp" />
+		<Unit filename="ArchivoUsuario.h" />
+		<Unit filename="ArchivoVenta.cpp" />
+		<Unit filename="ArchivoVenta.h" />
 		<Unit filename="Articulo.cpp" />
 		<Unit filename="Articulo.h" />
 		<Unit filename="Bebida.cpp" />
@@ -44,16 +52,26 @@
 		<Unit filename="Comida.h" />
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
-		<Unit filename="Funciones.cpp" />
-		<Unit filename="Funciones.h" />
 		<Unit filename="Hora.cpp" />
 		<Unit filename="Hora.h" />
+		<Unit filename="Persona.cpp" />
+		<Unit filename="Persona.h" />
+		<Unit filename="ProductoManager.cpp" />
+		<Unit filename="ProductoManager.h" />
+		<Unit filename="ProductosManager.cpp" />
+		<Unit filename="ProductosManager.h" />
 		<Unit filename="Terminal.cpp" />
 		<Unit filename="Terminal.h" />
-		<Unit filename="appManager.cpp" />
-		<Unit filename="appManager.h" />
-		<Unit filename="classPersona.h" />
+		<Unit filename="Usuario.cpp" />
+		<Unit filename="Usuario.h" />
+		<Unit filename="UsuarioManager.cpp" />
+		<Unit filename="UsuarioManager.h" />
+		<Unit filename="Venta.cpp" />
+		<Unit filename="Venta.h" />
+		<Unit filename="cuadro.cpp" />
+		<Unit filename="cuadro.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menuOptions.h" />
 		<Unit filename="rlutil.h" />
 		<Extensions />
 	</Project>

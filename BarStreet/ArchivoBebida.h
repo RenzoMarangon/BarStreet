@@ -14,10 +14,11 @@ class ArchivoBebida{
         ArchivoBebida(const char *n="bebida.dat");
         bool grabarRegistro(Bebida obj);
         Bebida leerRegistro(int pos);
+        void leerTodos(Bebida registros[], int cantidad);
         int buscarRegistro(int num);
         int contarRegistros();
         bool modificarRegistro(Bebida obj, int pos);
-        bool listarRegistros();
+        int getNuevoID();
 
 };
 #endif // ARCHIVOBEBIDA_H_INCLUDED

@@ -2,7 +2,6 @@
 #include <ctime>
 #include "Fecha.h"
 
-using namespace std;
 
 Fecha::Fecha() {
     time_t t;
@@ -43,17 +42,7 @@ void Fecha::setMes(int mes) {
 void Fecha::setAnio(int anio) {
   _anio = anio;
 }
-void Fecha::mostrar(){
-    if(_dia < 10){
-        cout << "0";
-    }
-    cout << _dia << "/";
-    if(_mes < 10){
-        cout << "0";
-    }
-    cout << _mes << "/";
-    cout << _anio << endl;
-}
+
 
 std::string Fecha::toString() {
   return std::to_string(_dia) + "/" + std::to_string(_mes) + "/" + std::to_string(_anio);

@@ -1,37 +1,57 @@
 #include <iostream>
 #include <cstring>
-using namespace std;
 #include "Articulo.h"
 
+Articulo::Articulo(){
+    _letraID = 'N';
+    _nroID = -1;
+    strcpy(_nombre , "");
+    _stock = 0;
+    _costo = 0.0;
+    _precio_inicial = 0.0;
+    _variacion = 0.0 ;
+    _estado = false;
+}
 
-Articulo::Articulo(int id, std::string nombre, float precio_inicial, float costo, int stock, float variacion)
+Articulo::Articulo(char letraID, int nroID, std::string nombre, int stock, float costo, float precio_inicial, float variacion, bool estado)
 {
-    setID( id );
+    setLetraID( letraID );
+    setNroID( nroID );
     setNombre( nombre );
-    setPrecioInicial( precio_inicial );
-    setCosto( costo );
     setStock( stock );
+    setCosto( costo );
+    setPrecioInicial( precio_inicial );
     setVariacion( variacion );
-    setEstado( true );
+    setEstado( estado );
 
 }
-
-int Articulo::getID()
-{
-    return _id;
+char Articulo::getLetraID(){
+    return _letraID;
 }
-void Articulo::setID( int id)
-{
-    _id = id;
+void Articulo::setLetraID(char letraID){
+    _letraID = letraID;
+}
+
+void  Articulo::setNroID( int nroID ){
+    _nroID = nroID;
+}
+
+int Articulo::getNroID(){
+    return _nroID;
 }
 
 std::string Articulo::getNombre(){
     return _nombre;
 }
 
-
 void Articulo::setNombre(std::string nombre){
-   if(nombre.size() <= 50){
+    //ireta sobre cada caracter y convierte las minuscula en mayuscula
+    for (char &c : nombre) {
+        if (std::islower(c)) {
+            c = std::toupper(c);
+        }
+    }
+   if(nombre.size() <= 20){
       strcpy(_nombre, nombre.c_str());
    }
    else{
@@ -44,6 +64,10 @@ float Articulo::getPrecioInicial(){
 }
 void Articulo::setPrecioInicial( float precio_inicial )
 {
+    if(precio_inicial<0){
+
+    precio_inicial = 0;
+    }
     _precio_inicial = precio_inicial;
 }
 
@@ -53,6 +77,9 @@ float Articulo::getCosto(){
 }
 void Articulo::setCosto( float costo )
 {
+    if(costo<0){
+    costo = 0;
+    }
     _costo = costo;
 }
 
@@ -60,6 +87,9 @@ int Articulo::getStock(){
     return _stock;
 }
 void Articulo::setStock( int stock ){
+    if(stock<0){
+    stock = 0;
+    }
     _stock = stock;
 }
 
@@ -68,6 +98,9 @@ float Articulo::getVariacion(){
 }
 void Articulo::setVariacion( float variacion )
 {
+    if(variacion<0){
+    variacion = 0;
+    }
     _variacion = variacion;
 }
 
@@ -79,50 +112,11 @@ void Articulo::setEstado( bool estado )
     _estado = estado;
 }
 
-void Articulo::Cargar()
-{
+std::string Articulo::getLetrayNroID(){
 
-    std::cout<<"ID: ";
-    std::cin >> _id;
-    std::cout<<endl;
+    return  _letraID + std::to_string(_nroID);
 
-    std::cout << "Nombre ";
-    cargarCadena(_nombre,49);
-    std::cout<<endl;
-
-    std::cout<< "Stock: ";
-    std::cin >> _stock;
-    std::cout<<endl;
-
-    std::cout<< "Precio inicial: ";
-    std::cin >> _precio_inicial;
-    std::cout<<endl;
-
-    std::cout<< "Costo: ";
-    std::cin >> _costo;
-    std::cout<<endl;
-
-    std::cout<< "Variacion: ";
-    std::cin >> _variacion;
-    std::cout<<endl;
 }
-
-void Articulo::Mostrar()
-{
-    std::cout<<"ID: " << _id << endl;
-
-
-    std::cout << "Nombre: " << _nombre << endl;
-
-    std::cout<< "Stock: " << _stock << endl;
-
-    std::cout<< "Precio inicial: " << _precio_inicial << endl;
-
-    std::cout<< "Costo: " << _costo << endl;
-
-    std::cout<< "Variacion: " << _variacion << endl;
-}
-
 
 
 
